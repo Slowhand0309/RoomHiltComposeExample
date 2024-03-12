@@ -1,6 +1,7 @@
 package com.example.roomhiltcomposeexample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,13 +11,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
+import androidx.room.withTransaction
+import com.example.roomhiltcomposeexample.data.AppDatabase
+import com.example.roomhiltcomposeexample.data.User
 import com.example.roomhiltcomposeexample.ui.theme.RoomHiltComposeExampleTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check code for debug
+        // TODO: remove!
+        lifecycleScope.launch {
+            appDatabase.userDao().also {
+                appDatabase.withTransaction {
+                    val id = it.insert(User(name = "name", image = ""))
+                    val user = it.getUser(id).first()
+                    Log.d("MainActivity", "userId: ${user.id}, name: ${user.name}")
+                }
+            }
+        }
+
         setContent {
             RoomHiltComposeExampleTheme {
                 // A surface container using the 'background' color from the theme

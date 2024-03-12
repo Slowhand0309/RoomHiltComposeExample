@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
     @Query("SELECT * from users WHERE id = :id")
-    fun getUser(id: Int): Flow<User>
+    fun getUser(id: Long): Flow<User>
 
     @Insert
-    suspend fun insert(user: User)
+    suspend fun insert(user: User): Long
 }
