@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.withTransaction
 import com.example.roomhiltcomposeexample.data.AppDatabase
 import com.example.roomhiltcomposeexample.data.User
+import com.example.roomhiltcomposeexample.data.seed
 import com.example.roomhiltcomposeexample.ui.theme.RoomHiltComposeExampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -28,18 +29,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Check code for debug
-        // TODO: remove!
-        lifecycleScope.launch {
-            appDatabase.userDao().also {
-                appDatabase.withTransaction {
-                    val id = it.insert(User(name = "name", image = ""))
-                    val user = it.getUser(id).first()
-                    Log.d("MainActivity", "userId: ${user.id}, name: ${user.name}")
-                }
-            }
-        }
+        appDatabase.seed(lifecycleScope)
 
         setContent {
             RoomHiltComposeExampleTheme {
