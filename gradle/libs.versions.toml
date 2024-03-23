@@ -17,6 +17,7 @@ hilt-navigation-compose = "1.2.0"
 lifecycle-viewmodel-ktx = "2.7.0"
 room = "2.6.1"
 paging = "3.2.1"
+coil = "2.6.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -38,6 +39,7 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 # room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
